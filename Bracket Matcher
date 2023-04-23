@@ -1,0 +1,30 @@
+def BracketMatcher(strParam):
+  open_brackets = ['(', '[', '{']
+  close_brackets = [')', ']', '}']
+
+  stack = []
+  flag = 0
+  for ch in strParam:
+    if ch in open_brackets:
+      stack.append(ch)
+    elif ch in close_brackets:
+      if len(stack)!=0:
+        index = close_brackets.index(ch)
+        if stack[-1] == open_brackets[index]:
+          char = stack.pop()
+        else:
+          flag = 1
+          break
+      else:
+        flag = 1
+        break
+
+  if flag == 0 and len(stack) == 0:
+    strParam = 1
+  else:
+    strParam = 0
+  # code goes here
+  return strParam
+
+# keep this function call here 
+print(BracketMatcher(input()))
