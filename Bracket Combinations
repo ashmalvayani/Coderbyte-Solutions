@@ -1,0 +1,83 @@
+def BracketCombinations(num):
+  """
+  Bracket Combinations
+  Have the function BracketCombinations(num) read num which will be an integer greater than or equal to zero, 
+  and return the number of valid combinations that can be formed with num pairs of parentheses. For example, 
+  if the input is 3, then the possible combinations of 3 pairs of parenthesis, namely: ()()(), are ()()(), ()(()),
+  (())(), ((())), and (()()). There are 5 total combinations when the input is 3, so your program should return 5.
+  Examples
+  Input: 3
+  Output: 5
+  Input: 2
+  Output: 2
+  """
+    result = []
+    
+    # Define a recursive function to generate the combinations
+    def generate_combinations(left, right, current):
+        if left == num and right == num:
+            result.append(current)
+            return
+        
+        if left < num:
+            generate_combinations(left+1, right, current+"(")
+        if right < left:
+            generate_combinations(left, right+1, current+")")
+    
+    # Start the recursion with 0 left and right parentheses, and an empty string
+    generate_combinations(0, 0, "")
+    
+    return len(result)
+
+print(BracketCombinations(input()))
+
+
+##############################################################################################################################
+## ALTERNATIVE SOLUTION
+# this solution takes more time to run but runs perfectly
+
+from itertools import permutations
+
+def check_parenthesis(string):
+
+  stack = []
+  flag = 0
+  for ch in string:
+    if ch == '(':
+      stack.append(ch)
+    elif ch == ')':
+      if len(stack)!=0:
+        if stack[-1] == '(':
+          char = stack.pop()
+        else:
+          return False
+      else:
+        return False
+
+  if len(stack) == 0:
+    return True
+  else:
+    return False
+
+
+def BracketCombinations(num): 
+
+  open_brackets = [ '(' for i in range(num)]
+  close_brackets = [ ')' for i in range(num)]
+
+  open_brackets.extend(close_brackets)
+  brackets = open_brackets
+  
+  check = list(set(list(permutations(brackets))))
+
+  final = []
+  for index, item in enumerate(check):
+    check[index] = ''.join(item)
+    if check[index] not in final:
+      if check_parenthesis(check[index]) == True:
+        final.append(check[index])
+  
+  return len(final)
+  
+# keep this function call here 
+print(BracketCombinations(input()))
