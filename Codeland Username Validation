@@ -1,0 +1,19 @@
+import string
+
+def CodelandUsernameValidation(strParam):
+  if len(strParam) <4 or len(strParam) >25 or strParam[0].lower() not in string.ascii_lowercase or strParam[-1] =='_':
+    return "false"
+    
+  alpha = [x for x in string.ascii_lowercase]
+  alpha.extend([str(x) for x in range(10)])
+  alpha.extend(['_'])
+  
+  for ch in strParam:
+    if ch not in alpha:
+      return "false"
+
+  return "true"
+  # code goes here
+
+# keep this function call here 
+print(CodelandUsernameValidation(input()))
