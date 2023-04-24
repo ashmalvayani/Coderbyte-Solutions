@@ -1,0 +1,17 @@
+def FindIntersection(strArr):
+  
+  list1 = strArr[0].split(",")
+  list1 = [int(i) for i in list1]
+  list2 = strArr[1].split(",")
+  list2 = [int(i) for i in list2]
+
+  intersection = [str(value) for value in list1 if value in list2]
+  if len(intersection) == 0:
+    return "false"
+  strArr = ",".join(intersection)
+  
+  # code goes here
+  return strArr
+
+# keep this function call here 
+print(FindIntersection(input()))
