@@ -1,0 +1,44 @@
+import string
+def QuestionsMarks(strParam):
+  
+  strParam = list(strParam)
+  
+  # first step is remove every character except for digits and '?'
+  chars = [str(value) for value in range(10)]
+  chars.extend(['?'])
+  temp = []
+  for ch in strParam:
+    if ch in chars:
+      temp.append(ch)
+  
+  strParam = temp
+
+  ten_counter = 0
+  for i in range(len(strParam)):
+    if strParam[i].isnumeric():
+      first_digit = int(strParam[i])
+
+      if i+1!= len(strParam):
+        i = i+1
+        count = 0
+
+        while(i < len(strParam) and strParam[i]=='?'):
+          count = count + 1
+          i = i+1
+
+        if (i >= len(strParam)):
+          break
+
+        second_digit = int(strParam[i])
+        sum_ = first_digit + second_digit
+        if sum_ == 10 and count ==3:
+          ten_counter += 1
+        elif sum_ == 10 and (count < 3 or count > 3):
+          return "false" 
+
+  if ten_counter > 0: 
+    return "true" 
+  return "false"
+
+# keep this function call here 
+print(QuestionsMarks(input()))
